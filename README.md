@@ -1,5 +1,5 @@
 # Alien-stresser
-HTTP flooder multi-threaded in  python
+alien-stresser is a HTTP flooder multi-threaded in  python
 
 Usage :
 
