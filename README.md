@@ -3,7 +3,7 @@ alien-stresser is a HTTP flooder multi-threaded in  python
 
 Usage :
 
-python alien-stresser.py www.domain.com
+python alien-stresser.py  --host www.domain.com
 
 Depandancies :
 
